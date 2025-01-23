@@ -1,0 +1,174 @@
+.kanban-board {
+  display: flex;
+  width: 100%;
+  gap: 40px;
+  background-color: #F9FAFB;
+  padding: 20px;
+  border-radius: 10px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.column {
+  width: 100%;
+  flex: 1;
+  background-color: #dedede;
+  border-radius: 8px;
+  padding:85px 20px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  gap: 10px;
+
+  height: 450px;
+  overflow-y: auto;
+  // overflow: hidden;
+
+}::-webkit-scrollbar{
+  display: none;
+}
+
+.column-heading{
+  width: 328px;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+
+  position: fixed;
+  display: flex;
+  // gap: 212px;
+  flex-direction: row;
+  justify-content: space-between;
+  z-index: 1;
+  padding: 25px;
+}
+.column-heading.to-do-heading{
+  border-left: 4px solid #EF4444;
+}
+.column-heading.in-progress-heading{
+  border-left: 4px solid #3B82F6;
+}
+.column-heading.done-heading{
+  border-left: 4px solid #10B981;
+}
+
+.column.to-do {
+  // background-color: #cccccc;
+  // border-left: 4px solid #EF4444;
+}
+
+.column.in-progress {
+  // background-color: #cccccc;
+  // border-left: 4px solid #3B82F6;
+}
+
+.column.done {
+  // background-color:  #cccccc;
+  // border-left: 4px solid #10B981;
+}
+
+.count {
+  font-size: 24px;
+  font-weight:900;
+}
+button{
+  border: none;
+  background-color: transparent;
+}
+.circle{
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.circle:hover {
+  background-color: #A78BFA; /* Optional: Change background on hover */
+  transform: scale(1.1); /* Optional: Add a scaling effect on hover */
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+
+.kanban-board.hidden {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+.task-form {
+  display: block;
+  opacity: 1;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.form-heading {
+  font-size: 1.5rem;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+
+  label {
+    display: block;
+    font-size: 1rem;
+    color: #555555;
+    margin-bottom: 5px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+    }
+  }
+
+  textarea {
+    resize: none;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+
+  .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &-submit {
+      background-color: #007bff;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    &-cancel {
+      background-color: #f8f9fa;
+      color: #333333;
+      border: 1px solid #cccccc;
+
+      &:hover {
+        background-color: #e2e6ea;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,49 @@
+.task-card {
+  background: #ffffff;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.status-indicator.ToDo {
+  background-color: red;
+}
+
+.status-indicator.InProgress {
+  background-color: blue;
+}
+
+.status-indicator.Done {
+  background-color: green;
+}
+
+.actions button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.actions-buttons{
+  display: flex;
+  justify-content: end;
+}
+
+.task-card:hover {
+  background: #FFFFFF;
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  color: #007bff;
+}
