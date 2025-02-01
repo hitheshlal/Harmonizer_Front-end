@@ -26,7 +26,7 @@
 }
 
 .column-heading{
-  width: 328px;
+  width: 365px;
   background-color: #f5f5f5;
   border-radius: 6px;
 
@@ -40,6 +40,7 @@
 }
 .column-heading.to-do-heading{
   border-left: 4px solid #EF4444;
+  width: 355px;
 }
 .column-heading.in-progress-heading{
   border-left: 4px solid #3B82F6;
@@ -83,7 +84,7 @@ button{
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .circle:hover {
-  background-color: #A78BFA; /* Optional: Change background on hover */
+
   transform: scale(1.1); /* Optional: Add a scaling effect on hover */
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
@@ -95,13 +96,41 @@ button{
   pointer-events: none;
 }
 
+.cdk-drop-list-dragging .cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drop-list-receiving {
+  background-color: rgba(167, 201, 255, 0.3);  /* Light blue highlight */
+  border: 2px dashed #2196F3;  /* Dashed border effect */
+  transition: background-color 0.2s ease;
+}
+
+/* Add this to ensure source list doesn't get highlighted */
+.cdk-drag-dragging .cdk-drop-list {
+  background-color: transparent;
+  border: none;
+}
+
 .task-form {
   display: block;
   opacity: 1;
   transform: scale(0.9);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
+.required{
+  color: red;
+  margin-left: 2px;
+}
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
 
+.ng-invalid.ng-touched {
+  border-color: red;
+}
 .form-heading {
   font-size: 1.5rem;
   color: #333333;
@@ -142,7 +171,8 @@ button{
 
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  gap:1rem;
+  justify-content: end;
 
   .btn {
     padding: 10px 15px;

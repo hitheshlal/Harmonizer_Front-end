@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../../components/header/header.component";
-import { BoardComponent } from "../../components/board/board.component";
+import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { BoardComponent } from '../../kanban/Kanban-board/board.component';
+
 
 @Component({
   selector: 'app-dashboard',

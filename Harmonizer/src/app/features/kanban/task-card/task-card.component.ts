@@ -1,8 +1,9 @@
+import { DatePipe, SlicePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-task-card',
-  imports: [],
+  imports: [SlicePipe, DatePipe],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss'
 })

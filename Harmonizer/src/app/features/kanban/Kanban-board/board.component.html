@@ -5,8 +5,13 @@
       <h3>To do </h3>
       <span class="count">{{ toDoTasks.length }}</span>
     </div>
-    <div class="column to-do">
-      <app-task-card *ngFor="let task of toDoTasks" [task]="task"></app-task-card>
+    <div class="column to-do"
+     cdkDropList
+     id="todoList"
+     [cdkDropListData]="toDoTasks"
+     [cdkDropListConnectedTo]="['inProgressList', 'doneList']"
+     (cdkDropListDropped)="drop($event) ">
+      <app-task-card *ngFor="let task of toDoTasks" [task]="task" cdkDrag [cdkDragData]="task"></app-task-card>
     </div>
   </div>
 
@@ -16,8 +21,13 @@
       <h3>In-Progress </h3>
       <span class="count">{{ inProgressTasks.length }}</span>
     </div>
-    <div class="column in-progress">
-      <app-task-card *ngFor="let task of inProgressTasks" [task]="task"></app-task-card>
+    <div class="column in-progress"
+    cdkDropList
+    id="inProgressList"
+    [cdkDropListData]="inProgressTasks"
+    [cdkDropListConnectedTo]="['todoList', 'doneList']"
+    (cdkDropListDropped)="drop($event)" >
+      <app-task-card *ngFor="let task of inProgressTasks" [task]="task" cdkDrag></app-task-card>
     </div>
   </div>
 
@@ -27,8 +37,15 @@
       <h3>Done </h3>
       <span class="count">{{ doneTasks.length }}</span>
       </div>
-      <div class="column done">
-        <app-task-card *ngFor="let task of doneTasks" [task]="task"></app-task-card>
+      <div class="column done"
+       cdkDropList
+       id="doneList"
+       [cdkDropListData]="doneTasks"
+       [cdkDropListConnectedTo]="['todoList', 'inProgressList']"
+       (cdkDropListDropped)="drop($event)"
+       (cdkDropListEntered)="entered($event)"
+       (cdkDropListExited)="exited($event)">
+        <app-task-card *ngFor="let task of doneTasks" [task]="task" cdkDrag></app-task-card>
       </div>
   </div>
 
@@ -49,8 +66,13 @@
   <h3 class="form-heading">Add New Task</h3>
   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="taskTitle">Title</label>
+      <label for="taskTitle">Title <span class="required">*</span></label>
       <input type="text" id="taskTitle" name="taskTitle" placeholder="Enter task title" required formControlName="title"/>
+      <!-- Error message -->
+      <div class="error-message"
+      *ngIf="f['title'].touched && f['title'].errors?.['required']">
+    Please enter a task title
+    </div>
     </div>
 
     <div class="form-group">
@@ -60,19 +82,18 @@
         name="taskDescription"
         placeholder="Provide a brief description of the task"
         rows="4"
-        required
         formControlName="description"
       ></textarea>
     </div>
 
     <div class="form-group">
       <label for="taskDate">Due Date</label>
-      <input type="date" id="taskDate" name="taskDate" required />
+      <input type="date" id="taskDate" name="taskDate" formControlName="duedate" />
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-submit">Add Task</button>
       <button type="button" class="btn btn-cancel" (click)="cancelAddTask()">Cancel</button>
+      <button type="submit" class="btn btn-submit">Add Task</button>
     </div>
   </form>
 </div>
