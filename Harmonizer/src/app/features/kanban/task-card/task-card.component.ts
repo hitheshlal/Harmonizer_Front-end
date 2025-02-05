@@ -1,5 +1,6 @@
 import { DatePipe, SlicePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { ApiService } from '../../../core/services/api/api.service';
 
 @Component({
   selector: 'app-task-card',
@@ -10,8 +11,13 @@ import { Component, Input } from '@angular/core';
 export class TaskCardComponent {
 @Input() task :any;
 
-deleteTask(arg0: any) {
-throw new Error('Method not implemented.');
+constructor(private api : ApiService){}
+
+deleteTask(task: any) {
+var taskId = task.id;
+this.api.DeleteTask(taskId).subscribe((res:any)=>{
+console.log(res);
+})
 }
 editTask(arg0: any) {
 throw new Error('Method not implemented.');

@@ -16,6 +16,14 @@ export interface Task {
 export class ApiService {
 
 
+  Login(userProfile: any) {
+    return this.http.post(`https://localhost:7119/api/auth/login`,userProfile);
+  }
+
+  GetUserDetails(userid: any ) {
+    return this.http.get(`https://localhost:7119/api/auth/GetUserDetailsById?id=${userid}`)
+  }
+
   updateTaskStatus(updatedTask: { Id: number; statusId: number; }) {
     return this.http.put(`https://localhost:7119/updatestatus`,updatedTask);
   }
@@ -42,12 +50,16 @@ export class ApiService {
     return this.tasks.filter(task => task.status === status);
   }
 
-  getTaskByUserId(userid : number){
+  getTaskByUserId(userid : string){
     return this.http.get(`https://localhost:7119/GetTaskByUserId?userId=${userid}`)
   }
 
   CreateTask(newTask: { title: string | null | undefined; description: string | null | undefined; userId: string; statusId: number; }) {
    return this.http.post(`https://localhost:7119/create task`,newTask);
+  }
+
+  DeleteTask(taskId : any){
+    return this.http.delete(`https://localhost:7119/DeleteTask?taskId=${taskId}`)
   }
 
 }

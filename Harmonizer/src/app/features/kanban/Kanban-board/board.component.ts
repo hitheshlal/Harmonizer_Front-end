@@ -61,12 +61,20 @@ ngOnInit() {
 }
 
 loadTasks() {
-  const userid = 1;
-  this.api.getTaskByUserId(userid).subscribe((tasks: any) => {
-    this.toDoTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.ToDo);
-    this.inProgressTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.InProgress);
-    this.doneTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.Done);
-  });
+
+  const userid = localStorage.getItem('userid');
+
+  if (!userid) {
+    console.error('User ID not found in localStorage');
+    return;
+  }
+    this.api.getTaskByUserId(userid).subscribe((tasks: any) => {
+      this.toDoTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.ToDo);
+      this.inProgressTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.InProgress);
+      this.doneTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.Done);
+    });
+
+
 }
 
 showAddTaskForm() {
@@ -113,16 +121,17 @@ onSubmit(){
 }
 
 entered(event: CdkDragEnter) {
-  if (event.container !== event.item.dropContainer) {
+  if (event.container === event.item.dropContainer) {
     const containerElement = event.container.element.nativeElement;
     containerElement.classList.add('cdk-drop-list-receiving');
+
   }
 }
 
 drop(event: CdkDragDrop<any[]>) {
 
-  document.querySelectorAll('.cdk-drop-list-receiving')
-      .forEach(element => element.classList.remove('cdk-drop-list-receiving'));
+  // document.querySelectorAll('.cdk-drop-list-receiving')
+  //     .forEach(element => element.classList.remove('cdk-drop-list-receiving'));
 
   // Log the container information
   console.log("Container ID:", event.container.id);

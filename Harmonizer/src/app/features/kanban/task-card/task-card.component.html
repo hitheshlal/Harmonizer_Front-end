@@ -6,7 +6,7 @@
   </div>
 
   <div class="actions">
-    <small>{{ task.createdAt | date : 'M/d/yy' }}</small>
+    <h6>{{ task.createdAt | date : 'M/d/yy' }}</h6>
     <div class="actions-buttons">
       <button (click)="editTask(task)">✏️</button>
       <button (click)="deleteTask(task)">🗑️</button>

@@ -1,0 +1,10 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="profile-card" *ngIf="UserProfile.picture">
+      <img src={{this.UserProfile.picture}} alt="Profile Picture" class="profile-img">
+      <h3>{{this.UserProfile.name}}</h3>
+      <p>{{this.UserProfile.email}}</p>
+
+      <hr>
+     <button (click)="logout()">logout</button>
+  </div>
+</div>

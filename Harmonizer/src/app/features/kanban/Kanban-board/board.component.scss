@@ -1,79 +1,125 @@
 .kanban-board {
   display: flex;
   width: 100%;
-  gap: 40px;
+  gap: 20px;
   background-color: #F9FAFB;
   padding: 20px;
   border-radius: 10px;
+  height: calc(100vh - 100px); /* Fixed height based on viewport */
+  position: fixed;
   transition: opacity 0.5s ease, transform 0.5s ease;
+  overflow: hidden;
+ 
+
+  /* Make columns wrap on smaller screens */
+  @media (max-width: 1200px) {
+    gap: 15px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-.column {
+/* Column container */
+.column-container {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  position: relative;
   width: 100%;
-  flex: 1;
-  background-color: #dedede;
-  border-radius: 8px;
-  padding:85px 20px 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  gap: 10px;
+  height: 100%;
 
-  height: 450px;
-  overflow-y: auto;
-  // overflow: hidden;
-
-}::-webkit-scrollbar{
-  display: none;
+  @media (max-width: 768px) {
+    min-width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
 }
 
-.column-heading{
-  width: 365px;
+/* Column heading */
+.column-heading {
   background-color: #f5f5f5;
   border-radius: 6px;
-
-  position: fixed;
+  padding: 15px;
+  margin-bottom: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  width: 100%;
   display: flex;
-  // gap: 212px;
-  flex-direction: row;
   justify-content: space-between;
-  z-index: 1;
-  padding: 25px;
-}
-.column-heading.to-do-heading{
-  border-left: 4px solid #EF4444;
-  width: 355px;
-}
-.column-heading.in-progress-heading{
-  border-left: 4px solid #3B82F6;
-}
-.column-heading.done-heading{
-  border-left: 4px solid #10B981;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  &.to-do-heading {
+    border-left: 4px solid #EF4444;
+  }
+
+  &.in-progress-heading {
+    border-left: 4px solid #3B82F6;
+  }
+
+  &.done-heading {
+    border-left: 4px solid #10B981;
+  }
 }
 
-.column.to-do {
-  // background-color: #cccccc;
-  // border-left: 4px solid #EF4444;
+/* Column content */
+.column {
+  width: 350px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x:hidden;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 250px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    display: none;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }
 
-.column.in-progress {
-  // background-color: #cccccc;
-  // border-left: 4px solid #3B82F6;
-}
-
-.column.done {
-  // background-color:  #cccccc;
-  // border-left: 4px solid #10B981;
-}
-
+/* Task counter */
 .count {
-  font-size: 24px;
-  font-weight:900;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4b5563;
+  background-color: #e5e7eb;
+  padding: 2px 8px;
+  border-radius: 4px;
 }
-button{
-  border: none;
-  background-color: transparent;
-}
-.circle{
-  border: 1px solid black;
+
+/* Add task button */
+.circle {
+  border: 1px solid #d1d5db;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -81,14 +127,25 @@ button{
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.circle:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 3;
 
-  transform: scale(1.1); /* Optional: Add a scaling effect on hover */
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+    background-color: #f3f4f6;
+  }
 
+  @media (max-width: 768px) {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+}
 
 .kanban-board.hidden {
   opacity: 0;
@@ -96,21 +153,21 @@ button{
   pointer-events: none;
 }
 
-.cdk-drop-list-dragging .cdk-drag-placeholder {
-  opacity: 0;
-}
+// .cdk-drop-list-dragging .cdk-drag-placeholder {
+//   opacity: 0;
+// }
 
-.cdk-drop-list-receiving {
-  background-color: rgba(167, 201, 255, 0.3);  /* Light blue highlight */
-  border: 2px dashed #2196F3;  /* Dashed border effect */
-  transition: background-color 0.2s ease;
-}
+// .cdk-drop-list-receiving {
+//   background-color: rgba(243, 172, 172, 0.3);  /* Light blue highlight */
+//   border: 2px dashed #a0dfeb;  /* Dashed border effect */
+//   transition: background-color 0.2s ease;
+// }
 
-/* Add this to ensure source list doesn't get highlighted */
-.cdk-drag-dragging .cdk-drop-list {
-  background-color: transparent;
-  border: none;
-}
+// /* Add this to ensure source list doesn't get highlighted */
+// .cdk-drag-dragging .cdk-drop-list {
+//   background-color: transparent;
+//   border: none;
+// }
 
 .task-form {
   display: block;
@@ -200,5 +257,47 @@ button{
       }
     }
   }
+}
+
+
+.back-ground{
+   background-color: #D4EDDA;
+}
+/* Drag and Drop Specific Styles */
+.cdk-drag-dragging {
+  cursor: grabbing;
+}
+
+.cdk-drop-list {
+  /* Base styling for drop lists */
+  transition: background-color 0.2s ease, border 0.2s ease;
+}
+
+.cdk-drop-list-receiving {
+  /* Highlight style for the target list */
+  background-color: #D6D6D6;/* Soft light blue */
+
+  transition: background-color 0.2s ease, border 0.2s ease;
+}
+
+.cdk-drag-placeholder {
+  /* Style for the placeholder when dragging */
+  opacity: 0.5;
+  background-color: rgba(59, 130, 246, 0.2);
+
+
+}
+
+/* Prevent unwanted highlighting during drag */
+.cdk-drag-dragging .cdk-drop-list {
+  background-color: #dedede !important;
+  border: none !important;
+}
+
+.cdk-drag-preview {
+  /* Optional: Style for the item being dragged */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border-radius: 4px;
+  background-color: white;
 }
 
