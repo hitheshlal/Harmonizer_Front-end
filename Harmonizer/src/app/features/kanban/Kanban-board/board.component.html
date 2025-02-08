@@ -1,4 +1,4 @@
-<div class="kanban-board" *ngIf="showKanban">
+<div class="kanban-board content p-4">
   <div class="column-container">
     <div class="column-heading to-do-heading">
       <h3>To do</h3>
@@ -57,41 +57,5 @@
   </button>
 </div>
 
-<!-- add new task form -->
-<div class="task-form" *ngIf="!showKanban && showAddTaskForm">
-  <h3 class="form-heading">Add New Task</h3>
-  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="taskTitle">Title <span class="required">*</span></label>
-      <input type="text" id="taskTitle" name="taskTitle" placeholder="Enter task title" required formControlName="title"/>
-      <!-- Error message -->
-      <div class="error-message"
-      *ngIf="f['title'].touched && f['title'].errors?.['required']">
-    Please enter a task title
-    </div>
-    </div>
-
-    <div class="form-group">
-      <label for="taskDescription">Description</label>
-      <textarea
-        id="taskDescription"
-        name="taskDescription"
-        placeholder="Provide a brief description of the task"
-        rows="4"
-        formControlName="description"
-      ></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="taskDate">Due Date</label>
-      <input type="date" id="taskDate" name="taskDate" formControlName="duedate" />
-    </div>
-
-    <div class="form-actions">
-      <button type="button" class="btn btn-cancel" (click)="cancelAddTask()">Cancel</button>
-      <button type="submit" class="btn btn-submit">Add Task</button>
-    </div>
-  </form>
-</div>
 
 

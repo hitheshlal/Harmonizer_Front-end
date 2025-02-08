@@ -3,12 +3,11 @@ import { TaskCardComponent } from "../task-card/task-card.component";
 import { CommonModule, SlicePipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CdkDragDrop, CdkDragEnter, CdkDragExit, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-
-import { BehaviorSubject } from 'rxjs';
 import { ApiService } from '../../../core/services/api/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomAlertComponent } from '../../../shared/components/custom-alert/custom-alert.component';
 import { Router } from '@angular/router';
+import { TaskFormComponent } from '../../../shared/components/task-form/task-form.component';
 
 export interface Task {
   id: string;
@@ -38,22 +37,15 @@ export class BoardComponent {
   inProgressTasks : Task[] = [];
   doneTasks : Task[] = [];
 
-  // statuses: Array<'ToDo' | 'InProgress' | 'Done'> = ['ToDo', 'InProgress', 'Done'];
-  // tasks: Task[] = [];
+constructor(private api: ApiService, private dialog: MatDialog){}
 
-constructor(private api: ApiService, private dialog: MatDialog, private router: Router){}
-
-  taskForm = new FormGroup({
-    title : new FormControl('', [Validators.required]),
-    description : new FormControl(''),
-    duedate : new FormControl('')
-  })
+  // taskForm = new FormGroup({
+  //   title : new FormControl('', [Validators.required]),
+  //   description : new FormControl(''),
+  //   duedate : new FormControl('')
+  // })
   // // Convenience getter for easy access to form fields
-  get f() { return this.taskForm.controls; }
-
-showKanban = true;
-showTaskForm = false;
-
+  // get f() { return this.taskForm.controls; }
 
 
 ngOnInit() {
@@ -73,51 +65,6 @@ loadTasks() {
       this.inProgressTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.InProgress);
       this.doneTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.Done);
     });
-
-
-}
-
-showAddTaskForm() {
-    this.showKanban = false;
-    this.showTaskForm = true;
-}
-
-cancelAddTask(){
-    this.showKanban = true;
-    this.showTaskForm = false;
-}
-
-onSubmit(){
-      if(this.taskForm.valid){
-        console.log('Form submitted', this.taskForm.value)
-
-        if(!this.taskForm.value.duedate){
-          this.taskForm.value.duedate = null;
-        }
-
-        const newTask = {
-          title: this.taskForm.value.title,
-          description: this.taskForm.value.description,
-          dueDate: this.taskForm.value.duedate,
-          userId: "1",
-          statusId: 1
-        };
-
-        this.api.CreateTask(newTask).subscribe((res:any)=>{
-          console.log(res);
-          if(res){
-            this.showAlert('Task added To-Do List Successfully', 'Success' )
-               // this.router.navigate(['/dashboard']);
-
-          }
-        })
-
-        this.showKanban = true;
-        this.showTaskForm = false;
-      }else{
-        console.log('Form not valid')
-        this.showAlert('Please fill in all required fields.', 'Alert');
-      }
 }
 
 entered(event: CdkDragEnter) {
@@ -129,9 +76,6 @@ entered(event: CdkDragEnter) {
 }
 
 drop(event: CdkDragDrop<any[]>) {
-
-  // document.querySelectorAll('.cdk-drop-list-receiving')
-  //     .forEach(element => element.classList.remove('cdk-drop-list-receiving'));
 
   // Log the container information
   console.log("Container ID:", event.container.id);
@@ -168,19 +112,6 @@ drop(event: CdkDragDrop<any[]>) {
       console.log(res);
       this.loadTasks();
     })
-
-
-    // ({
-    //   next: () => {
-    //     // Optionally refresh the board
-    //     this.loadTasks();
-    //   },
-    //   error: (error: any) => {
-    //     console.error('Error updating task status:', error);
-    //     // Optionally show error message
-    //     this.showAlert('Failed to update task status', 'Error');
-    //   }
-    // });
       }
 
 
@@ -206,4 +137,46 @@ showAlert(message: string, title: string) {
         disableClose: true
       });
 }
+
+
+showAddTaskForm() {
+  const dialogRef = this.dialog.open(TaskFormComponent, {
+    width: '500px',
+    disableClose: true
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      // Handle the new task data
+      this.addNewTask(result);
+      console.log(result);
+    }
+  });
+}
+
+addNewTask(result: any){
+  console.log('Form submitted', result)
+
+        if(!result.duedate){
+          result.duedate = null;
+        }
+        const userid = localStorage.getItem('userid');
+        const newTask = {
+          title: result.title,
+          description: result.description,
+          dueDate: result.duedate,
+          userId: userid,
+          statusId: 1
+        };
+
+        this.api.CreateTask(newTask).subscribe((res:any)=>{
+          console.log(res);
+          if(res){
+            this.showAlert('Task added To-Do List Successfully', 'Success' )
+          }else{
+        console.log('Form not valid')
+        this.showAlert('Please fill in all required fields.', 'Alert');
+          }
+    });
+  }
 }

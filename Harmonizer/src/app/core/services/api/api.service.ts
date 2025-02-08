@@ -14,6 +14,9 @@ export interface Task {
   providedIn: 'root'
 })
 export class ApiService {
+  UpdateTask(id: any, result: any) {
+    return this.http.put(`https://localhost:7119/Edit task?taskid=${id}`,result)
+  }
 
 
   Login(userProfile: any) {
@@ -54,7 +57,7 @@ export class ApiService {
     return this.http.get(`https://localhost:7119/GetTaskByUserId?userId=${userid}`)
   }
 
-  CreateTask(newTask: { title: string | null | undefined; description: string | null | undefined; userId: string; statusId: number; }) {
+  CreateTask(newTask: { title: string | null | undefined; description: string | null | undefined; userId: string | null; statusId: number; }) {
    return this.http.post(`https://localhost:7119/create task`,newTask);
   }
 
@@ -62,4 +65,7 @@ export class ApiService {
     return this.http.delete(`https://localhost:7119/DeleteTask?taskId=${taskId}`)
   }
 
+  getTaskById(taskId : any){
+    return this.http.get(`https://localhost:7119/GetTaskById?taskid=${taskId}`)
+  }
 }

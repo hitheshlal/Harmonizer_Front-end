@@ -1,15 +1,17 @@
 .kanban-board {
   display: flex;
-  width: 100%;
+  float: right;
+  width: 75%;
   gap: 20px;
   background-color: #F9FAFB;
+  margin-top: 15px;
   padding: 20px;
   border-radius: 10px;
   height: calc(100vh - 100px); /* Fixed height based on viewport */
-  position: fixed;
+  // position: fixed;
   transition: opacity 0.5s ease, transform 0.5s ease;
-  overflow: hidden;
- 
+  // overflow: hidden;
+
 
   /* Make columns wrap on smaller screens */
   @media (max-width: 1200px) {
@@ -27,7 +29,7 @@
 .column-container {
   display: flex;
   flex-direction: column;
-  width: 350px;
+  max-width: 300px;
   position: relative;
   width: 100%;
   height: 100%;
@@ -73,7 +75,7 @@
 
 /* Column content */
 .column {
-  width: 350px;
+  width: 300px;
   background-color: white;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
@@ -276,7 +278,7 @@
 .cdk-drop-list-receiving {
   /* Highlight style for the target list */
   background-color: #D6D6D6;/* Soft light blue */
-
+  
   transition: background-color 0.2s ease, border 0.2s ease;
 }
 
