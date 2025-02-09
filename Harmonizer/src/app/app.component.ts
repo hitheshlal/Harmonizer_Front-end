@@ -11,11 +11,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,  MatDialogModule, 
+  imports: [RouterOutlet,  MatDialogModule,
      ReactiveFormsModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatDatepickerModule,
      MatNativeDateModule,
   ],

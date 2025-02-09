@@ -14,6 +14,11 @@ export interface Task {
   providedIn: 'root'
 })
 export class ApiService {
+
+  tasks : any[] = [];
+  constructor(private http: HttpClient) {}
+
+
   UpdateTask(id: any, result: any) {
     return this.http.put(`https://localhost:7119/Edit task?taskid=${id}`,result)
   }
@@ -32,8 +37,8 @@ export class ApiService {
   }
 
 
-  tasks : any[] = [];
-  constructor(private http: HttpClient) { }
+
+
 
   getAllTasks(): Observable<Task[]> {
     return this.http.get<Task[]>('/data/tasks.json').pipe(

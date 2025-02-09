@@ -2,8 +2,36 @@
   width: 20%;
   height: 100vh;
   position: fixed;
+  margin-top: 20px;
+  background: #f4e1d2;
+  color: black;
 }
+
 .content {
   margin-left: 220px;
   width: calc(100% - 220px);
+}
+
+// Add some styling for active links
+.router-link-active {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+// Add hover effects for better UX
+a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+}
+
+// Add some spacing between menu items
+.list-unstyled li {
+  margin-bottom: 8px;
 }

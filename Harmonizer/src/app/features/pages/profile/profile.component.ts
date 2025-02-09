@@ -24,7 +24,7 @@ UserProfile : any = {}
 constructor(private route: Router, private api: ApiService){}
 
   ngOnInit(){
-    let userid = localStorage.getItem('userid')
+    let userid = localStorage.getItem('Userid')
     console.log("from user profile page", userid)
 
     if(userid)
@@ -45,7 +45,8 @@ constructor(private route: Router, private api: ApiService){}
 
 
   logout(){
-    localStorage.removeItem('userid')
+    localStorage.removeItem('Userid')
+    localStorage.removeItem('Token')
     alert("storage cleared successfully")
     this.route.navigate(['/login'])
   }

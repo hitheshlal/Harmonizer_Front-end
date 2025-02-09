@@ -15,7 +15,7 @@ export class HeaderComponent {
   constructor(private route: Router, private api: ApiService){}
 
     ngOnInit(){
-      let userid = localStorage.getItem('userid')
+      let userid = localStorage.getItem('Userid')
       console.log("from user profile page", userid)
 
 
