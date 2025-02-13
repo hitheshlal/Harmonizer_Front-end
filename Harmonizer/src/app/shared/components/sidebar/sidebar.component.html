@@ -1,30 +1,30 @@
-<div class="sidebar text-white p-3">
-  <h4 class="text-center">Menu</h4>
-  <ul class="list-unstyled">
-    <li>
-      <a [routerLink]="['/dashboard']"
-         routerLinkActive="router-link-active"
-         [routerLinkActiveOptions]="{exact: true}">
-        Home
-      </a>
-    </li>
-    <li>
-      <a [routerLink]="['/profile']"
-         routerLinkActive="router-link-active">
-        <button (click)="Navigate('/profile')">Profile</button>
-      </a>
-    </li>
-    <li>
-      <a [routerLink]="['/calender']"
-         routerLinkActive="router-link-active">
-        Settings
-      </a>
-    </li>
-    <li>
-      <a [routerLink]="['/logout']"
-         routerLinkActive="router-link-active">
-        Logout
-      </a>
-    </li>
-  </ul>
+<div class="app-container">
+  <nav class="sidebar">
+    <ul class="nav-links">
+      <li>
+        <button (click)="loadTask('all')" class="nav-button" [class.active]="activeButton === 'all'">
+          <i class="material-icons">edit_note</i>
+          <span>All Tasks</span>
+        </button>
+      </li>
+      <li>
+        <button (click)="showSortedTasks('today')" class="nav-button" [class.active]="activeButton === 'today'">
+          <i class="material-icons">access_time</i>
+          <span>Today</span>
+        </button>
+      </li>
+      <li>
+        <button (click)="showSortedTasks('tomorrow')" class="nav-button" [class.active]="activeButton === 'tomorrow'">
+          <i class="material-icons">access_time</i>
+          <span>Tomorrow</span>
+        </button>
+      </li>
+      <li>
+        <button (click)="navigate('draft')" class="nav-button" [class.active]="activeButton === 'calendar'">
+          <i class="material-icons">date_range</i>
+          <span>Calender</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
 </div>

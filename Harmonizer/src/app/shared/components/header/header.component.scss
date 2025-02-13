@@ -1,51 +1,125 @@
 
-.header{
+// .header{
+//   position: relative;
+//   width: 100%;
+//   height: 90px;
+//   padding: 0 30px;
+//   padding-bottom: 20px;
+//   // background : linear-gradient(90deg, #6D28D9, #A78BFA);
+
+//   background: white;
+//   color: white;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: space-between;
+//   z-index: 1;
+
+// }
+
+// .circle{
+//   border: 1px solid black;
+//   border-radius: 50%;
+//   width: 40px;
+//   height: 40px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+// }
+// .circle:hover {
+//   background-color: #A78BFA; /* Optional: Change background on hover */
+//   transform: scale(1.1); /* Optional: Add a scaling effect on hover */
+//   transition: transform 0.2s ease, background-color 0.2s ease;
+// }
+// .header-second{
+//   width: 100%;
+//   height: auto;
+//   display: flex;
+//   justify-content: end;
+//   padding: 20px;
+//   gap: 8px;
+// }
+
+// img{
+//   position: relative;
+//   width: 200px;
+//   height: auto;
+//   margin-top: 30px;
+
+// }
+
+.header {
   position: relative;
   width: 100%;
-  height: 110px;
-  padding: 0 30px;
-  padding-bottom: 20px;
-  // background : linear-gradient(90deg, #6D28D9, #A78BFA);
-
+  height: 90px;
+  padding: 0 30px 20px;
   background: white;
   color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  z-index: 10;
+  z-index: 1;
 
+  // Logo image styles
+  img {
+    position: relative;
+    width: 200px;
+    height: auto;
+    margin-top: 30px;
+  }
+
+  // Profile image styles
+  .circle {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      background-color: #A78BFA;
+      transform: scale(1.1);
+    }
+
+    // Profile image inside circle
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      margin: 0;  // Reset margin from the logo img styles
+      border-radius: 50%;  // Keep the circular shape
+    }
+  }
 }
 
-.circle{
-  border: 1px solid black;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.circle:hover {
-  background-color: #A78BFA; /* Optional: Change background on hover */
-  transform: scale(1.1); /* Optional: Add a scaling effect on hover */
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-.header-second{
+// Second header section
+.header-second {
   width: 100%;
   height: auto;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;  // 'end' is non-standard, using flex-end
   padding: 20px;
   gap: 8px;
 }
 
-img{
-  position: relative;
-  width: 200px;
-  height: auto;
-  margin-top: 30px;
-
+// Optional: Add styles for the profile placeholder
+.profile-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #666;
+  border: 1px solid black;
 }

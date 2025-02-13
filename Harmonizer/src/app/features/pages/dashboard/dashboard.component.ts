@@ -11,5 +11,24 @@ import { SidebarComponent } from "../../../shared/components/sidebar/sidebar.com
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+  isSidebarCollapsed = false;
+  isMobile = false;
 
+  constructor() {
+    // Check initial screen size
+    this.checkScreenSize();
+
+    // Listen for window resize events
+    window.addEventListener('resize', () => {
+      this.checkScreenSize();
+    });
+  }
+
+  checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768;
+  }
+
+  toggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
 }

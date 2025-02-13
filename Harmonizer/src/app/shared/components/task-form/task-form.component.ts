@@ -13,6 +13,10 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatDialogModule, MatButtonModule, CommonModule,
         ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule
    ],
+   providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss'
 })
@@ -39,7 +43,7 @@ export class TaskFormComponent {
       this.taskForm.patchValue({
         title: data.task.title,
         description: data.task.description,
-        duedate: data.task.duedate
+        duedate: data.task.dueDate
       });
     }
 
@@ -69,6 +73,6 @@ export class TaskFormComponent {
     this.dialogRef.close();
   }
 
-  
+
 }
 

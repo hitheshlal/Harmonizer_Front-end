@@ -8,13 +8,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { CustomAlertComponent } from '../../../shared/components/custom-alert/custom-alert.component';
 import { Router } from '@angular/router';
 import { TaskFormComponent } from '../../../shared/components/task-form/task-form.component';
+import { KanbanService } from '../services/kanban.service';
+import { format } from "date-fns";
+import {MatIconModule} from '@angular/material/icon';
 
 export interface Task {
   id: string;
   title: string;
   description: string;
-  date: string;
+  date?: string;
+  dueDate?: string;
   statusId: number;
+
 }
 enum TaskStatus {
   ToDo = 1,
@@ -23,7 +28,7 @@ enum TaskStatus {
 }
 @Component({
   selector: 'app-board',
-  imports: [TaskCardComponent, CommonModule, ReactiveFormsModule,DragDropModule],
+  imports: [TaskCardComponent, CommonModule, ReactiveFormsModule,DragDropModule, MatIconModule],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -33,11 +38,12 @@ export class BoardComponent {
   @ViewChild('inProgressList') inProgressList!: CdkDropList;
   @ViewChild('doneList') doneList!: CdkDropList;
 
-  toDoTasks : Task[] = [];
-  inProgressTasks : Task[] = [];
-  doneTasks : Task[] = [];
+  toDoTasks : any;
+  inProgressTasks : any;
+  doneTasks : any;
+  tasks : any;
 
-constructor(private api: ApiService, private dialog: MatDialog){}
+constructor(private api: ApiService, private dialog: MatDialog, private taskService: KanbanService){}
 
   // taskForm = new FormGroup({
   //   title : new FormControl('', [Validators.required]),
@@ -49,23 +55,33 @@ constructor(private api: ApiService, private dialog: MatDialog){}
 
 
 ngOnInit() {
-  this.loadTasks();
+
+ // Ensure loadTasks() is called
+ this.taskService.loadTasks();
+
+ // Subscribe to task updates after load
+ this.taskService.toDoTasks$.subscribe((tasks:Task[]) => {
+   this.toDoTasks = tasks;
+   console.log("Updated ToDo Tasks:", this.toDoTasks);
+ });
+
+ this.taskService.inProgressTasks$.subscribe((tasks:Task[]) => {
+   this.inProgressTasks = tasks;
+   console.log("Updated InProgress Tasks:", this.inProgressTasks);
+ });
+
+ this.taskService.doneTasks$.subscribe((tasks:Task[]) => {
+   this.doneTasks = tasks;
+   console.log("Updated Done Tasks:", this.doneTasks);
+ });
+
+//  let todaysTask = this.taskService.sortTasksForToday();
+//  console.log("today's Task",todaysTask)
 }
 
-loadTasks() {
 
-  const userid = localStorage.getItem('Userid');
 
-  if (!userid) {
-    console.error('User ID not found in localStorage');
-    return;
-  }
-    this.api.getTaskByUserId(userid).subscribe((tasks: any) => {
-      this.toDoTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.ToDo);
-      this.inProgressTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.InProgress);
-      this.doneTasks = tasks.filter((task: { statusId: TaskStatus; }) => task.statusId === TaskStatus.Done);
-    });
-}
+
 
 entered(event: CdkDragEnter) {
   if (event.container === event.item.dropContainer) {
@@ -110,7 +126,7 @@ drop(event: CdkDragDrop<any[]>) {
     console.log("moved task",updatedTask.Id,"statusId",newStatusId)
     this.api.updateTaskStatus(updatedTask).subscribe((res) => {
       console.log(res);
-      this.loadTasks();
+      // this.loadTasks();
     })
       }
 
@@ -161,13 +177,20 @@ addNewTask(result: any){
           result.duedate = null;
         }
         const userid = localStorage.getItem('Userid');
+        let dueDate = result.duedate ? new Date(result.duedate) : null;
+
+      //  if (dueDate) {
+      //   dueDate = new Date(dueDate.getTime() - dueDate.getTimezoneOffset() * 60000);
+      //   dueDate.setHours(0, 0, 0, 0);
+      //  }
         const newTask = {
           title: result.title,
           description: result.description,
-          dueDate: result.duedate,
+          dueDate:  dueDate ? format(dueDate, 'yyyy-MM-dd') : null,
           userId: userid,
           statusId: 1
         };
+        console.log("last due date", newTask.dueDate)
 
         this.api.CreateTask(newTask).subscribe((res:any)=>{
           console.log(res);

@@ -36,7 +36,7 @@
   <div class="column-container">
     <div class="column-heading done-heading">
       <h3>Done</h3>
-      <span class="count">{{ doneTasks.length }}</span>
+      <span class="count">{{ doneTasks?.length }}</span>
     </div>
     <div class="column done"
       cdkDropList
@@ -50,12 +50,14 @@
     </div>
   </div>
 
-  <button id="plusButton" (click)="showAddTaskForm()">
-    <div class="circle">
+  <button class="circle" (click)="showAddTaskForm()">
+
       <i class="fa-solid fa-plus fa-xl"></i>
-    </div>
+
   </button>
-</div>
+
+
+
 
 
 

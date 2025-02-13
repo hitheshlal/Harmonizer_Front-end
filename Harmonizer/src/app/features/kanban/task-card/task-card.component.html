@@ -8,8 +8,8 @@
   <div class="actions">
     <h6>{{ task.createdAt | date : 'M/d/yy' }}</h6>
     <div class="actions-buttons">
-      <button (click)="editTask(task)">✏️</button>
-      <button (click)="deleteTask(task)">🗑️</button>
+      <button (click)="editTask(task)"><i class="material-icons" style="font-size: 20px;">create</i></button>
+      <button (click)="deleteTask(task)"><i class="material-icons" style="font-size: 20px;">delete</i></button>
     </div>
 
 

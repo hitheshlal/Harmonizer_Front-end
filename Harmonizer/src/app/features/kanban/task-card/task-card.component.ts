@@ -4,6 +4,8 @@ import { ApiService } from '../../../core/services/api/api.service';
 import { Router } from '@angular/router';
 import { TaskFormComponent } from '../../../shared/components/task-form/task-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { format } from 'date-fns';
+import { KanbanService } from '../services/kanban.service';
 
 @Component({
   selector: 'app-task-card',
@@ -14,7 +16,9 @@ import { MatDialog } from '@angular/material/dialog';
 export class TaskCardComponent {
 @Input() task :any;
 
-constructor(private api : ApiService, private router: Router, private dialog: MatDialog){}
+constructor(private api : ApiService, private router: Router, private dialog: MatDialog,
+            private taskService: KanbanService
+){}
 
 deleteTask(task: any) {
 
@@ -44,18 +48,22 @@ editTask(task: any) {
         if(!result.duedate){
           result.duedate = null;
         }
-        const userid = localStorage.getItem('userid');
+        console.log("Date from edit Task first:", result.duedate)
+        console.log("title from edit Task:", result.title)
+        const userid = localStorage.getItem('Userid');
         const newTask = {
           title: result.title,
           description: result.description,
-          dueDate: result.duedate,
+          dueDate: result.duedate ? format(result.duedate, 'yyyy-MM-dd') : null,
           userId: userid,
 
         };
+        console.log("Date from edit Task second:", result.duedate)
+        console.log("Date from edit Task third:", newTask.dueDate)
         // Update the task with the new data
         this.api.UpdateTask(task.id, newTask).subscribe((res: any) => {
           console.log('Task updated:', res);
-          window.location.reload();
+          this.taskService.loadTasks();
         });
       }
     });

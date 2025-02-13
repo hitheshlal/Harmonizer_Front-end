@@ -20,7 +20,7 @@ export class ApiService {
 
 
   UpdateTask(id: any, result: any) {
-    return this.http.put(`https://localhost:7119/Edit task?taskid=${id}`,result)
+    return this.http.put(`https://localhost:7119/EditTask?taskid=${id}`,result)
   }
 
 
