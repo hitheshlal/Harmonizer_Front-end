@@ -1,0 +1,10 @@
+<div class="Container">
+  <div class="header row">
+    <app-header></app-header>
+  </div>
+
+  <div class="body row" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <app-sidebar [class.hidden]="isMobile && isSidebarCollapsed"></app-sidebar>
+    <app-board></app-board>
+  </div>
+</div>

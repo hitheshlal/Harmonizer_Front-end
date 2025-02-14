@@ -1,0 +1,22 @@
+
+<h2 mat-dialog-title>Today's Sorted Tasks</h2>
+<div mat-dialog-content>
+  <div *ngIf="tasks.length > 0; else noTasks">
+    <mat-card *ngFor="let task of tasks" class="task-card">
+      <mat-card-title>{{ task.title }}</mat-card-title>
+      <mat-card-content>
+        <p><strong>Description:</strong> {{ task.description || 'No description' }}</p>
+        <p><strong>Due Date:</strong> {{ task.dueDate }}</p>
+        <p><strong>Status:</strong> {{ task.statusId }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <ng-template #noTasks>
+    <p>No tasks found for today.</p>
+  </ng-template>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="closeModal()">Close</button>
+</div>

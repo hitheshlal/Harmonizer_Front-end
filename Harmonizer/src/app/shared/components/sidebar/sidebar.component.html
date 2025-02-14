@@ -1,0 +1,30 @@
+<div class="app-container">
+  <nav class="sidebar">
+    <ul class="nav-links">
+      <li>
+        <button (click)="loadTask('all')" class="nav-button" [class.active]="activeButton === 'all'">
+          <i class="material-icons">edit_note</i>
+          <span>All Tasks</span>
+        </button>
+      </li>
+      <li>
+        <button (click)="showSortedTasks('today')" class="nav-button" [class.active]="activeButton === 'today'">
+          <i class="material-icons">access_time</i>
+          <span>Today</span>
+        </button>
+      </li>
+      <li>
+        <button (click)="showSortedTasks('tomorrow')" class="nav-button" [class.active]="activeButton === 'tomorrow'">
+          <i class="material-icons">access_time</i>
+          <span>Tomorrow</span>
+        </button>
+      </li>
+      <li>
+        <button (click)="navigate('draft')" class="nav-button" [class.active]="activeButton === 'calendar'">
+          <i class="material-icons">date_range</i>
+          <span>Calender</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>

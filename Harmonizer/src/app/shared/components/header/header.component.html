@@ -1,0 +1,12 @@
+<div class="header">
+  <img src="/Images/Harmonizer.png" alt="logo">
+  <a [routerLink]="['/profile']" routerLinkActive="router-link-active">
+    <img *ngIf="UserProfile?.picture"
+         class="circle"
+         [src]="UserProfile?.picture"
+         alt="User image">
+    <div *ngIf="!UserProfile?.picture" class="profile-placeholder">
+      <!-- Placeholder content can go here -->
+    </div>
+  </a>
+</div>

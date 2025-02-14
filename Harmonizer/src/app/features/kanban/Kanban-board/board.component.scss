@@ -1,0 +1,172 @@
+.kanban-board {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  background-color: #F9FAFB;
+  padding: 20px;
+  border-radius: 10px;
+  height: calc(100vh - 90px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  overflow-x: auto; // Allow horizontal scroll on small screens
+
+  @media (max-width: 1024px) {
+    gap: 15px;
+    padding: 15px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 90px);
+    overflow-x: hidden;
+    padding: 10px;
+  }
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  width: calc(33.33% - 14px); // Account for gap
+  height: 100%;
+
+  @media (max-width: 1024px) {
+    min-width: 250px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    min-height: 300px;
+    margin-bottom: 20px;
+  }
+}
+
+.column {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  @media (max-width: 768px) {
+    min-height: 300px;
+    max-height: 400px;
+  }
+}
+
+.column-heading {
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    padding: 12px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+}
+
+.count {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4b5563;
+  background-color: #e5e7eb;
+  padding: 2px 8px;
+  border-radius: 4px;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+.circle {
+  border: 1px solid #d1d5db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+    background-color: #f3f4f6;
+  }
+
+  @media (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+// Custom scrollbar styles
+.column::-webkit-scrollbar {
+  width: 3px;
+}
+
+.column::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.column::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.column::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+// Drag and drop styles remain the same
+.cdk-drag-dragging {
+  cursor: grabbing;
+}
+
+.cdk-drop-list-receiving {
+  background-color: #D6D6D6;
+  transition: background-color 0.2s ease, border 0.2s ease;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.5;
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border-radius: 4px;
+  background-color: white;
+}

@@ -1,0 +1,63 @@
+<div class="kanban-board content p-4">
+  <div class="column-container">
+    <div class="column-heading to-do-heading">
+      <h3>To do</h3>
+      <span class="count">{{ toDoTasks.length }}</span>
+    </div>
+    <div class="column to-do"
+      cdkDropList
+      id="todoList"
+      [cdkDropListData]="toDoTasks"
+      [cdkDropListConnectedTo]="['inProgressList', 'doneList']"
+      (cdkDropListDropped)="drop($event)"
+      (cdkDropListEntered)="entered($event)"
+      (cdkDropListExited)="exited($event)">
+      <app-task-card *ngFor="let task of toDoTasks" [task]="task" cdkDrag [cdkDragData]="task"></app-task-card>
+    </div>
+  </div>
+
+  <div class="column-container">
+    <div class="column-heading in-progress-heading">
+      <h3>In-Progress</h3>
+      <span class="count">{{ inProgressTasks.length }}</span>
+    </div>
+    <div class="column in-progress"
+      cdkDropList
+      id="inProgressList"
+      [cdkDropListData]="inProgressTasks"
+      [cdkDropListConnectedTo]="['todoList', 'doneList']"
+      (cdkDropListDropped)="drop($event)"
+      (cdkDropListEntered)="entered($event)"
+      (cdkDropListExited)="exited($event)">
+      <app-task-card *ngFor="let task of inProgressTasks" [task]="task" cdkDrag></app-task-card>
+    </div>
+  </div>
+
+  <div class="column-container">
+    <div class="column-heading done-heading">
+      <h3>Done</h3>
+      <span class="count">{{ doneTasks?.length }}</span>
+    </div>
+    <div class="column done"
+      cdkDropList
+      id="doneList"
+      [cdkDropListData]="doneTasks"
+      [cdkDropListConnectedTo]="['todoList', 'inProgressList']"
+      (cdkDropListDropped)="drop($event)"
+      (cdkDropListEntered)="entered($event)"
+      (cdkDropListExited)="exited($event)">
+      <app-task-card *ngFor="let task of doneTasks" [task]="task" cdkDrag></app-task-card>
+    </div>
+  </div>
+
+  <button class="circle" (click)="showAddTaskForm()">
+
+      <i class="fa-solid fa-plus fa-xl"></i>
+
+  </button>
+
+
+
+
+
+

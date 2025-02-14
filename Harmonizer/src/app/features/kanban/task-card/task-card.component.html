@@ -1,0 +1,20 @@
+<div class="task-card">
+  <!-- <div class="status-indicator" [class]="task.status"></div> -->
+  <div class="text-box">
+    <h4>{{ task.title | slice: 0 : 10 }}</h4>
+    <p>{{ task.description | slice: 0 : 30 }}</p>
+  </div>
+
+  <div class="actions">
+    <h6>{{ task.createdAt | date : 'M/d/yy' }}</h6>
+    <div class="actions-buttons">
+      <button (click)="editTask(task)"><i class="material-icons" style="font-size: 20px;">create</i></button>
+      <button (click)="deleteTask(task)"><i class="material-icons" style="font-size: 20px;">delete</i></button>
+    </div>
+
+
+
+
+  </div>
+
+</div>

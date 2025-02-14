@@ -1,0 +1,82 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.Container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  @media (max-width: 768px) {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  position: relative;
+  z-index: 1000;
+  @media (max-width: 1024px) {
+    grid-template-columns: 200px 1fr;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+app-sidebar {
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1000;
+
+  @media (max-width: 768px) {
+    height: auto;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: white; // Add your desired background color
+  }
+}
+
+app-board {
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+  @media (max-width: 768px) {
+    height: calc(100vh - 120px); // Adjust based on your header and sidebar height
+    width: 100%;
+  }
+}
+
+// Optional: Add these classes for sidebar toggle functionality
+.body.sidebar-collapsed {
+  @media (min-width: 769px) {
+    grid-template-columns: 60px 1fr;
+  }
+}
+
+// Add padding/margin adjustments if needed
+.header {
+  @media (max-width: 768px) {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white; // Add your desired background color
+  }
+}

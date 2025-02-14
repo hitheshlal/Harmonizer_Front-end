@@ -1,0 +1,47 @@
+<div class="task-modal">
+  <h2 mat-dialog-title>{{dialogTitle}}</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="taskForm">
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput placeholder="Enter task title" formControlName="title" required>
+          <mat-error *ngIf="f['title'].touched && f['title'].errors?.['required']">
+            Please enter a task title
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput
+                    placeholder="Provide a brief description of the task"
+                    rows="4"
+                    formControlName="description">
+          </textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Due Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="duedate"
+            >
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">{{submitButtonText}}</button>
+  </mat-dialog-actions>
+</div>
