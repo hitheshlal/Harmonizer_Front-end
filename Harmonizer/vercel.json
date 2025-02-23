@@ -6,7 +6,7 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist/harmonizer",
-        "buildCommand": "npm install -g @angular/cli && ng build"
+        "buildCommand": "npm install && npm run build"
       }
     }
   ],
