@@ -20,54 +20,16 @@ constructor(private api : ApiService, private router: Router, private dialog: Ma
             private taskService: KanbanService
 ){}
 
-deleteTask(task: any) {
 
-  var taskId = task.id;
-  if (window.confirm("Are you sure you want to delete this task?")){
-
-        this.api.DeleteTask(taskId).subscribe((res:any)=>{
-        console.log(res);
-        })
+FunctionCall(functionName: string, task: any){
+  if(functionName === "editTask"){
+    this.taskService.editTask(task)
   }
-  window.location.reload();
+  else if(functionName === 'deleteTask'){
+    this.taskService.deleteTask(task);
+  }
+
 }
 
-editTask(task: any) {
-  // First get the task details
-  this.api.getTaskById(task.id).subscribe((taskDetails: any) => {
-    // Open dialog with the task details
-    const dialogRef = this.dialog.open(TaskFormComponent, {
-      width: '500px',
-      data: { task: taskDetails }
-    });
-
-    // Handle the dialog close event
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        console.log(result)
-        if(!result.duedate){
-          result.duedate = null;
-        }
-        console.log("Date from edit Task first:", result.duedate)
-        console.log("title from edit Task:", result.title)
-        const userid = localStorage.getItem('Userid');
-        const newTask = {
-          title: result.title,
-          description: result.description,
-          dueDate: result.duedate ? format(result.duedate, 'yyyy-MM-dd') : null,
-          userId: userid,
-
-        };
-        console.log("Date from edit Task second:", result.duedate)
-        console.log("Date from edit Task third:", newTask.dueDate)
-        // Update the task with the new data
-        this.api.UpdateTask(task.id, newTask).subscribe((res: any) => {
-          console.log('Task updated:', res);
-          this.taskService.loadTasks();
-        });
-      }
-    });
-  });
-}
 
 }

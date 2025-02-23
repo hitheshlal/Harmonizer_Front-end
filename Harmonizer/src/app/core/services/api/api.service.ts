@@ -20,20 +20,20 @@ export class ApiService {
 
 
   UpdateTask(id: any, result: any) {
-    return this.http.put(`https://localhost:7119/EditTask?taskid=${id}`,result)
+    return this.http.put(`https://harmonizer-backend.onrender.com/EditTask?taskid=${id}`,result)
   }
 
 
   Login(userProfile: any) {
-    return this.http.post(`https://localhost:7119/api/auth/login`,userProfile);
+    return this.http.post(`https://harmonizer-backend.onrender.com/api/auth/login`,userProfile);
   }
 
   GetUserDetails(userid: any ) {
-    return this.http.get(`https://localhost:7119/api/auth/GetUserDetailsById?id=${userid}`)
+    return this.http.get(`https://harmonizer-backend.onrender.com/api/auth/GetUserDetailsById?id=${userid}`)
   }
 
   updateTaskStatus(updatedTask: { Id: number; statusId: number; }) {
-    return this.http.put(`https://localhost:7119/updatestatus`,updatedTask);
+    return this.http.put(`https://harmonizer-backend.onrender.com/updatestatus`,updatedTask);
   }
 
 
@@ -59,18 +59,18 @@ export class ApiService {
   }
 
   getTaskByUserId(userid : string){
-    return this.http.get(`https://localhost:7119/GetTaskByUserId?userId=${userid}`)
+    return this.http.get(`https://harmonizer-backend.onrender.com/GetTaskByUserId?userId=${userid}`)
   }
 
   CreateTask(newTask: { title: string | null | undefined; description: string | null | undefined; userId: string | null; statusId: number; }) {
-   return this.http.post(`https://localhost:7119/create task`,newTask);
+   return this.http.post(`https://harmonizer-backend.onrender.com/create task`,newTask);
   }
 
   DeleteTask(taskId : any){
-    return this.http.delete(`https://localhost:7119/DeleteTask?taskId=${taskId}`)
+    return this.http.delete(`https://harmonizer-backend.onrender.com/DeleteTask?taskId=${taskId}`)
   }
 
   getTaskById(taskId : any){
-    return this.http.get(`https://localhost:7119/GetTaskById?taskid=${taskId}`)
+    return this.http.get(`https://harmonizer-backend.onrender.com/GetTaskById?taskid=${taskId}`)
   }
 }
