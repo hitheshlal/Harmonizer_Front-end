@@ -12,7 +12,6 @@ export interface UserProfile {
   email: string;
   name: string;
   picture: string;
-  // Add other fields you need
 }
 declare var google: any;
 declare var Token : any;
@@ -79,7 +78,7 @@ export class LoginComponent {
 
             console.log("Response : ", res)
             console.log("Token:", localStorage.getItem('Token'));
-            console.log("User ID:", localStorage.getItem('Userid')); // Fixed the log to match storage key
+            console.log("User ID:", localStorage.getItem('Userid')); 
 
 
 
