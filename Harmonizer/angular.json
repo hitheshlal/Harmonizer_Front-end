@@ -25,6 +25,11 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "optimization": {
+              "fonts": false,
+              "scripts": true,
+              "styles": true
+            },
             "assets": [
               {
                 "glob": "**/*",
@@ -54,7 +59,11 @@
               "outputHashing": "all"
             },
             "development": {
-              "optimization": false,
+              "optimization": {
+                "fonts": false,
+                "scripts": false,
+                "styles": false
+              },
               "extractLicenses": false,
               "sourceMap": true,
               "fileReplacements": [
