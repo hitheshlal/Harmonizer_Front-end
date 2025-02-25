@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { environment } from '../../../../environments/environment.development';
 import { Router } from '@angular/router';
 import { CustomAlertComponent } from '../../../shared/components/custom-alert/custom-alert.component';
-import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '../../../core/services/api/api.service';
 import { jwtDecode } from "jwt-decode";
+
+declare var environment: any;
+// Dynamic environment handling
+const googleClientId = typeof process !== 'undefined' && process.env['NG_APP_GOOGLE_CLIENT_ID']
+  ? process.env['NG_APP_GOOGLE_CLIENT_ID']
+  : (typeof environment !== 'undefined' ? environment.googleClientId : ''); // Fallback if available
 
 export interface UserProfile {
   Google_id: string;
@@ -13,43 +17,48 @@ export interface UserProfile {
   name: string;
   picture: string;
 }
+
 declare var google: any;
-declare var Token : any;
+declare var Token: any;
 
 @Component({
   selector: 'app-login',
-  imports: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
   userProfile: any;
   EmailId: any;
+
   constructor(private router: Router, private dialog: MatDialog, private api: ApiService) {}
 
   ngOnInit() {
-    // Initialize Google Sign-In
-    google.accounts.id.initialize({
-      client_id: environment.googleClientId,
-      callback: this.handleCredentialResponse.bind(this),
-      auto_select: false,
-      cancel_on_tap_outside: true
-    });
+    // Initialize Google Sign-In only if client ID is available
+    if (googleClientId) {
+      google.accounts.id.initialize({
+        client_id: googleClientId,
+        callback: this.handleCredentialResponse.bind(this),
+        auto_select: false,
+        cancel_on_tap_outside: true
+      });
 
-    // Render the button
-    google.accounts.id.renderButton(
-      document.getElementById("buttonDiv"),
-      {
-        theme: "outline",
-        size: "large",
-        width: 250
-      }
-    );
+      // Render the button
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        {
+          theme: "outline",
+          size: "large",
+          width: 250
+        }
+      );
 
-    // Optional: Display the One Tap dialog
-    google.accounts.id.prompt();
+      // Display the One Tap dialog
+      google.accounts.id.prompt();
+    } else {
+      console.error("Google Client ID is missing! Check your environment variables.");
+    }
   }
+
   async handleCredentialResponse(response: any) {
     try {
       const decodedToken = this.decodeJwtResponse(response.credential);
@@ -76,11 +85,9 @@ export class LoginComponent {
             localStorage.setItem('Token', res.token);
             localStorage.setItem('Userid', res.userid);
 
-            console.log("Response : ", res)
+            console.log("Response : ", res);
             console.log("Token:", localStorage.getItem('Token'));
-            console.log("User ID:", localStorage.getItem('Userid')); 
-
-
+            console.log("User ID:", localStorage.getItem('Userid'));
 
             this.showAlert("Login Success", "Success");
             this.router.navigate(['/dashboard']);
@@ -107,14 +114,12 @@ export class LoginComponent {
   }
 
   showAlert(message: string, title: string) {
-        this.dialog.open(CustomAlertComponent, {
-          data: {
-            title: title,
-            message: message
-          },
-          disableClose: true
-        });
+    this.dialog.open(CustomAlertComponent, {
+      data: {
+        title: title,
+        message: message
+      },
+      disableClose: true
+    });
   }
 }
-
-
