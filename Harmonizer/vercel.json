@@ -6,8 +6,8 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist/harmonizer",
-        "installCommand": "npm install --include=dev",
-        "buildCommand": "./vercel-build.sh"
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build"
       }
     }
   ],
