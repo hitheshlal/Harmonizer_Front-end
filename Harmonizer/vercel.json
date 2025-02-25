@@ -7,7 +7,7 @@
       "config": {
         "distDir": "dist/harmonizer",
         "installCommand": "npm install --include=dev",
-        "buildCommand": "CI=false npm run build"
+        "buildCommand": "./vercel-build.sh"
       }
     }
   ],
