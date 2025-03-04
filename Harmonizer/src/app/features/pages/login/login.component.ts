@@ -1,11 +1,14 @@
+
 import { Component } from '@angular/core';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { CustomAlertComponent } from '../../../shared/components/custom-alert/custom-alert.component';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '../../../core/services/api/api.service';
 import { jwtDecode } from "jwt-decode";
+
+
 
 export interface UserProfile {
   Google_id: string;
@@ -78,7 +81,7 @@ export class LoginComponent {
 
             console.log("Response : ", res)
             console.log("Token:", localStorage.getItem('Token'));
-            console.log("User ID:", localStorage.getItem('Userid')); 
+            console.log("User ID:", localStorage.getItem('Userid'));
 
 
 
