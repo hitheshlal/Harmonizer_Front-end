@@ -1,12 +1,13 @@
 
 import { Component } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+
 import { Router } from '@angular/router';
 import { CustomAlertComponent } from '../../../shared/components/custom-alert/custom-alert.component';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '../../../core/services/api/api.service';
 import { jwtDecode } from "jwt-decode";
+import { EnvironmentService } from '../../../environment.service';
 
 
 
@@ -29,12 +30,14 @@ export class LoginComponent {
 
   userProfile: any;
   EmailId: any;
-  constructor(private router: Router, private dialog: MatDialog, private api: ApiService) {}
+  constructor(private router: Router, private dialog: MatDialog, private api: ApiService,
+               private environmentService: EnvironmentService) {}
 
   ngOnInit() {
+    console.log("this.environmentService.googleClientId : ",this.environmentService.googleClientId)
     // Initialize Google Sign-In
     google.accounts.id.initialize({
-      client_id: environment.googleClientId,
+      client_id: this.environmentService.googleClientId,
       callback: this.handleCredentialResponse.bind(this),
       auto_select: false,
       cancel_on_tap_outside: true

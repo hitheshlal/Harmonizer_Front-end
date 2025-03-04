@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "npx ng build --configuration=production",
+    "build": "npx ng build --configuration=production && node set-env.js",
     "watch": "npx ng build --watch --configuration=development",
     "test": "ng test"
   },
