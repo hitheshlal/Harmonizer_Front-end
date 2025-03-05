@@ -2,18 +2,27 @@ const fs = require('fs');
 const path = require('path');
 
 try {
-  // Ensure the dist/Harmonizer directory exists
-  const distPath = path.resolve(__dirname, 'dist', 'Harmonizer');
+  // Correct path to match angular.json output
+  const distPath = path.resolve(__dirname, 'dist', 'harmonizer');
 
-  // Path to source env.js
+  // Verify source and destination paths
   const srcEnvPath = path.resolve(__dirname, 'src', 'env.js');
-
-  // Path to destination env.js
   const destEnvPath = path.resolve(distPath, 'env.js');
 
-  // Create dist directory if it doesn't exist
+  // Log paths for debugging
+  console.log('Source env.js path:', srcEnvPath);
+  console.log('Destination env.js path:', destEnvPath);
+
+  // Ensure the dist directory exists
   if (!fs.existsSync(distPath)) {
-    fs.mkdirSync(distPath, { recursive: true });
+    console.error('Distribution directory does not exist:', distPath);
+    process.exit(1);
+  }
+
+  // Check if source env.js exists
+  if (!fs.existsSync(srcEnvPath)) {
+    console.error('Source env.js file does not exist:', srcEnvPath);
+    process.exit(1);
   }
 
   // Copy env.js
