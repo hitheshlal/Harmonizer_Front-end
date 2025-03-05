@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Read the env.js template
-const envFilePath = path.resolve(__dirname, 'dist/your-project-name/env.js');
+const envFilePath = path.resolve(__dirname, 'dist/Harmonizer/env.js');
 let content = fs.readFileSync(envFilePath, 'utf8');
 
 // Replace placeholders with actual environment variables
