@@ -24,8 +24,8 @@ try {
   let content = fs.readFileSync(destEnvPath, 'utf8');
 
   // Replace placeholders with actual environment variables
-  content = content.replace('${API_URL}', process.env.API_URL || 'default-api-url');
-  content = content.replace('${googleClientId}', process.env.googleClientId || 'default-value');
+  content = content.replace('${API_URL}', process.env.API_URL || 'https://localhost:7119');
+  content = content.replace('${googleClientId}', process.env.googleClientId || '');
   // Add other replacements as needed
 
   // Write the modified content back
