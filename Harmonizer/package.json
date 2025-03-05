@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "npx ng build --configuration=production && node set-env.js && node ensure-index.js",
+    "vercel-build": "ng build --configuration=production && node set-env.js && node ensure-index.js",
     "watch": "npx ng build --watch --configuration=development",
     "test": "ng test"
   },
