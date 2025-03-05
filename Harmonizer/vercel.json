@@ -5,25 +5,14 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/harmonizer"
+        "distDir": "dist/Harmonizer"
       }
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/env.js",
-      "destination": "/dist/harmonizer/env.js"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/env.js",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
