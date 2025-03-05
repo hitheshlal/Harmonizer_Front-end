@@ -9,19 +9,21 @@
       }
     }
   ],
-  "routes": [
-    {
-      "src": "/env.js",
-      "headers": {
-        "Cache-Control": "public, max-age=0, must-revalidate"
-      },
-      "dest": "/dist/harmonizer/env.js"
-    }
-  ],
   "rewrites": [
     {
       "source": "/env.js",
       "destination": "/dist/harmonizer/env.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/env.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
     }
   ]
 }
