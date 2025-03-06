@@ -2,25 +2,39 @@ import { Injectable } from '@angular/core';
 
 declare global {
   interface Window {
-    env?: {
+    env: {
       apiUrl: string;
       googleClientId: string;
-      // Add other environment variables as needed
-    };
+    }
   }
 }
+
 @Injectable({
   providedIn: 'root'
 })
 export class EnvironmentService {
 
-  constructor() { }
+  private apiUrl = '';
+  private googleClientId = '';
 
-  get apiUrl(): string {
-    return window.env?.apiUrl || 'default-api-url';
+  constructor() {
+    // Get values from window.env if available
+    console.log("window env : ",window['env'])
+    console.log("window env : ",window.env?.apiUrl);
+    console.log("window env : ",window.env?.googleClientId);
+
+    if (window['env']) {
+      this.apiUrl = window['env']['apiUrl'] || this.apiUrl;
+      this.googleClientId = window['env']['googleClientId'] || this.googleClientId;
+    }
   }
 
-  get googleClientId(): string {
-    return (window as any)['env']?.googleClientId || 'default-value';
+  getApiUrl(): string {
+    return this.apiUrl;
   }
+
+  getGoogleClientId(): string {
+    return this.googleClientId;
+  }
+
 }

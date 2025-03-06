@@ -35,7 +35,11 @@
                 "glob": "**/*",
                 "input": "public"
               },
-               "src/env.js"
+              {
+                "glob": "env.js",
+                "input": "dist/harmonizer/browser",
+                "output": "."
+              }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",

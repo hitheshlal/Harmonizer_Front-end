@@ -34,10 +34,11 @@ export class LoginComponent {
                private environmentService: EnvironmentService) {}
 
   ngOnInit() {
-    console.log("this.environmentService.googleClientId : ",this.environmentService.googleClientId)
+    console.log("this.environmentService.googleClientId : ",this.environmentService.getGoogleClientId())
+    console.log("this.environmentService.apiurl : ",this.environmentService.getApiUrl())
     // Initialize Google Sign-In
     google.accounts.id.initialize({
-      client_id: this.environmentService.googleClientId,
+      client_id: this.environmentService.getGoogleClientId(),
       callback: this.handleCredentialResponse.bind(this),
       auto_select: false,
       cancel_on_tap_outside: true

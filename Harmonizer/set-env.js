@@ -1,47 +1,36 @@
+console.log("Running set-env.js... Creating env.js");
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 
 try {
-  // Correct path to match angular.json output
-  const distPath = path.resolve(__dirname, 'dist', 'harmonizer');
-
-  // Verify source and destination paths
-  const srcEnvPath = path.resolve(__dirname, 'src', 'env.js');
+  const distPath = path.resolve(__dirname, 'dist', 'harmonizer', 'browser');
   const destEnvPath = path.resolve(distPath, 'env.js');
 
-  // Log paths for debugging
-  console.log('Source env.js path:', srcEnvPath);
-  console.log('Destination env.js path:', destEnvPath);
+  console.log("Google Client Id :",process.env.GOOGLE_CLIENT_ID )
 
-  // Ensure the dist directory exists
+  const envContent = `
+(function(window) {
+  window["env"] = window["env"] || {};
+  window["env"]["apiUrl"] = "${process.env.API_URL || 'http://localhost:7119'}";
+  window["env"]["googleClientId"] = "${process.env.GOOGLE_CLIENT_ID || ''}";
+  console.log("Environment loaded:", window["env"]);
+})(this);
+`;
+
   if (!fs.existsSync(distPath)) {
-    console.error('Distribution directory does not exist:', distPath);
-    process.exit(1);
+    fs.mkdirSync(distPath, { recursive: true });
   }
 
-  // Check if source env.js exists
-  if (!fs.existsSync(srcEnvPath)) {
-    console.error('Source env.js file does not exist:', srcEnvPath);
-    process.exit(1);
-  }
-
-  // Copy env.js
-  fs.copyFileSync(srcEnvPath, destEnvPath);
-  console.log('env.js copied successfully');
-
-  // Read the env.js file
-  let content = fs.readFileSync(destEnvPath, 'utf8');
-
-  // Replace placeholders with actual environment variables
-  content = content.replace('${API_URL}', process.env.API_URL || 'https://localhost:7119');
-  content = content.replace('${googleClientId}', process.env.googleClientId || '');
-  // Add other replacements as needed
-
-  // Write the modified content back
-  fs.writeFileSync(destEnvPath, content);
-  console.log('Environment variables replaced successfully');
-
+  fs.writeFileSync(destEnvPath, envContent);
+  console.log('env.js generated successfully');
 } catch (error) {
-  console.error('Error during post-build process:', error);
+  console.error('Error generating env.js:', error);
   process.exit(1);
 }
+
+
+// console.log('GOOGLE_CLIENT_ID direct:', process.env.GOOGLE_CLIENT_ID);
+// console.log('GOOGLE_CLIENT_ID type:', typeof process.env.GOOGLE_CLIENT_ID);
+// console.log('GOOGLE_CLIENT_ID length:', process.env.GOOGLE_CLIENT_ID ? process.env.GOOGLE_CLIENT_ID.length : 0);
+

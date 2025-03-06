@@ -44,3 +44,7 @@ Thumbs.db
 # Ignore environment files containing API keys
 src/environments/environment.prod.ts
 src/environments/environment.ts
+.env
+.env.local
+.env.development
+.env.production
